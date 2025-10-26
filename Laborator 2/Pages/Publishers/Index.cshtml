@@ -1,5 +1,5 @@
 ﻿@page
-@model Laborator_2.Pages.Books.IndexModel
+@model Laborator_2.Pages.Publishers.IndexModel
 
 @{
     ViewData["Title"] = "Index";
@@ -35,6 +35,7 @@
     </script>
 }
 
+
 <h1>Index</h1>
 
 <p>
@@ -44,41 +45,17 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Book[0].Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Book[0].Author)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Book[0].Price)
-            </th>
-            <th>
-            @Html.DisplayNameFor(model => model.Book[0].PublishingDate)
-            </th>
-            <th>
-            @Html.DisplayNameFor(model => model.Book[0].Publisher.PublisherName)
+                @Html.DisplayNameFor(model => model.Publisher[0].PublisherName)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Book) {
+@foreach (var item in Model.Publisher) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)
+                @Html.DisplayFor(modelItem => item.PublisherName)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Author)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PublishingDate)
-             </td>
-             <td>
-                @Html.DisplayFor(modelItem => item.Publisher.PublisherName)
-             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |

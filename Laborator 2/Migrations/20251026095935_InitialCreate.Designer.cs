@@ -24,7 +24,7 @@ namespace Laborator_2.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Nume_Pren_Lab2.Models.Book", b =>
+            modelBuilder.Entity("Laborator_2.Models.Book", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()

@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Laborator_2.Models;
 
-namespace Laborator_2.Pages.Books
+namespace Laborator_2.Pages.Publishers
 {
     public class EditModel : PageModel
     {
@@ -16,25 +15,23 @@ namespace Laborator_2.Pages.Books
         }
 
         [BindProperty]
-        public Book Book { get; set; } = default!;
+        public Publisher Publisher { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
             {
-                TempData["Error"] = "Book can not have id: null!";
+                TempData["Error"] = "Publisher can not have id: null!";
                 return RedirectToPage("./Index");
             }
 
-            var book =  await _context.Book.FirstOrDefaultAsync(m => m.ID == id);
-            if (book == null)
+            var publisher =  await _context.Publisher.FirstOrDefaultAsync(m => m.ID == id);
+            if (publisher == null)
             {
-                TempData["Error"] = "Book not found!";
+                TempData["Error"] = "Publisher not found";
                 return RedirectToPage("./Index");
             }
-            Book = book;
-            ViewData["PublisherID"] = new SelectList(_context.Set<Publisher>(), "ID",
-                            "PublisherName");
+            Publisher = publisher;
             return Page();
         }
 
@@ -47,7 +44,7 @@ namespace Laborator_2.Pages.Books
                 return Page();
             }
 
-            _context.Attach(Book).State = EntityState.Modified;
+            _context.Attach(Publisher).State = EntityState.Modified;
 
             try
             {
@@ -55,10 +52,9 @@ namespace Laborator_2.Pages.Books
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!BookExists(Book.ID))
+                if (!PublisherExists(Publisher.ID))
                 {
-                    TempData["Error"] = $"Book not found!";
-                    return RedirectToPage("./Index");
+                    TempData["Error"] = "Publisher not found";
                 }
                 else
                 {
@@ -69,9 +65,9 @@ namespace Laborator_2.Pages.Books
             return RedirectToPage("./Index");
         }
 
-        private bool BookExists(int id)
+        private bool PublisherExists(int id)
         {
-            return _context.Book.Any(e => e.ID == id);
+            return _context.Publisher.Any(e => e.ID == id);
         }
     }
 }

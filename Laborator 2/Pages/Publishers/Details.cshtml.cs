@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Laborator_2.Models;
 
-namespace Laborator_2.Pages.Books
+namespace Laborator_2.Pages.Publishers
 {
     public class DetailsModel : PageModel
     {
@@ -14,25 +14,25 @@ namespace Laborator_2.Pages.Books
             _context = context;
         }
 
-        public Book Book { get; set; } = default!;
+        public Publisher Publisher { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
             {
-                TempData["Error"] = "Book can not have id: null!";
+                TempData["Error"] = "Publisher can not have id: null!";
                 return RedirectToPage("./Index");
             }
 
-            var book = await _context.Book.FirstOrDefaultAsync(m => m.ID == id);
-            if (book == null)
+            var publisher = await _context.Publisher.FirstOrDefaultAsync(m => m.ID == id);
+            if (publisher == null)
             {
-                TempData["Error"] = "Book not found!";
+                TempData["Error"] = "Publisher not found!";
                 return RedirectToPage("./Index");
             }
             else
             {
-                Book = book;
+                Publisher = publisher;
             }
             return Page();
         }

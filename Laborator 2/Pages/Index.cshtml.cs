@@ -1,5 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
+using Laborator_2.Models;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace Laborator_2.Pages
 {

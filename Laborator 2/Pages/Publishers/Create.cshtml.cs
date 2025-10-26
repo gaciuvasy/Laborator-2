@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Laborator_2.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Laborator_2.Models;
+using System.Security.Policy;
 
-namespace Laborator_2.Pages.Books
+namespace Laborator_2.Pages.Publishers
 {
     public class CreateModel : PageModel
     {
@@ -16,13 +16,11 @@ namespace Laborator_2.Pages.Books
 
         public IActionResult OnGet()
         {
-            ViewData["PublisherID"] = new SelectList(_context.Set<Publisher>(), "ID",
-                                    "PublisherName");
             return Page();
         }
 
         [BindProperty]
-        public Book Book { get; set; } = default!;
+        public Models.Publisher Publisher { get; set; } = default!;
 
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
@@ -32,9 +30,9 @@ namespace Laborator_2.Pages.Books
                 return Page();
             }
 
-            _context.Book.Add(Book);
+            _context.Publisher.Add(Publisher);
             await _context.SaveChangesAsync();
-            TempData["Message"] = $"Book {Book.Title} created successfully!";
+            TempData["Message"] = $"Publisher {Publisher.PublisherName} created successfully!";
             return RedirectToPage("./Index");
         }
     }

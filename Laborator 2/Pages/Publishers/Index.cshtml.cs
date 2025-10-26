@@ -1,8 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Gaciu_Vasile_Lab2.Data;
 using Laborator_2.Models;
 
-namespace Laborator_2.Pages.Books
+namespace Laborator_2.Pages.Publishers
 {
     public class IndexModel : PageModel
     {
@@ -13,13 +19,11 @@ namespace Laborator_2.Pages.Books
             _context = context;
         }
 
-        public IList<Book> Book { get;set; } = default!;
+        public IList<Publisher> Publisher { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            Book = await _context.Book
-                    .Include(b => b.Publisher)
-                    .ToListAsync();
+            Publisher = await _context.Publisher.ToListAsync();
         }
     }
 }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Laborator_2.Migrations
 {
     [DbContext(typeof(Gaciu_Vasile_Lab2Context))]
-    [Migration("20251026102743_PublishingDate")]
-    partial class PublishingDate
+    [Migration("20251026165127_AddPublisher")]
+    partial class AddPublisher
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,6 +40,9 @@ namespace Laborator_2.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(6, 2)");
 
+                    b.Property<int?>("PublisherID")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("PublishingDate")
                         .HasColumnType("datetime2");
 
@@ -49,7 +52,40 @@ namespace Laborator_2.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("PublisherID");
+
                     b.ToTable("Book");
+                });
+
+            modelBuilder.Entity("Laborator_2.Models.Publisher", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("PublisherName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Publisher");
+                });
+
+            modelBuilder.Entity("Laborator_2.Models.Book", b =>
+                {
+                    b.HasOne("Laborator_2.Models.Publisher", "Publisher")
+                        .WithMany("Books")
+                        .HasForeignKey("PublisherID");
+
+                    b.Navigation("Publisher");
+                });
+
+            modelBuilder.Entity("Laborator_2.Models.Publisher", b =>
+                {
+                    b.Navigation("Books");
                 });
 #pragma warning restore 612, 618
         }

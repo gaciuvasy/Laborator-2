@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Policy;
 
-namespace Nume_Pren_Lab2.Models
+namespace Laborator_2.Models
 {
     public class Book
     {
@@ -13,5 +14,7 @@ namespace Nume_Pren_Lab2.Models
         public decimal Price { get; set; }
         [DataType(DataType.Date)]
         public DateTime PublishingDate { get; set; }
+        public int? PublisherID { get; set; }
+        public Publisher? Publisher { get; set; }
     }
 }

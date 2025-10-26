@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Nume_Pren_Lab2.Models;
+using Laborator_2.Models;
 
 namespace Gaciu_Vasile_Lab2.Data
 {
@@ -15,5 +15,6 @@ namespace Gaciu_Vasile_Lab2.Data
         }
 
         public DbSet<Book> Book { get; set; } = default!;
+        public DbSet<Laborator_2.Models.Publisher> Publisher { get; set; } = default!;
     }
 }

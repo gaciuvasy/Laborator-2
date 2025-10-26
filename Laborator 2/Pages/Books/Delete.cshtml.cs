@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Gaciu_Vasile_Lab2.Data;
-using Nume_Pren_Lab2.Models;
+using Laborator_2.Models;
 
 namespace Laborator_2.Pages.Books
 {
@@ -26,14 +21,16 @@ namespace Laborator_2.Pages.Books
         {
             if (id == null)
             {
-                return NotFound();
+                TempData["Error"] = "Book can not have id: null!";
+                return RedirectToPage("./Index");
             }
 
             var book = await _context.Book.FirstOrDefaultAsync(m => m.ID == id);
 
             if (book == null)
             {
-                return NotFound();
+                TempData["Error"] = "Book not found!";
+                return RedirectToPage("./Index");
             }
             else
             {
@@ -46,7 +43,8 @@ namespace Laborator_2.Pages.Books
         {
             if (id == null)
             {
-                return NotFound();
+                TempData["Error"] = "Book can not have id: null!";
+                return RedirectToPage("./Index");
             }
 
             var book = await _context.Book.FindAsync(id);
@@ -55,9 +53,12 @@ namespace Laborator_2.Pages.Books
                 Book = book;
                 _context.Book.Remove(Book);
                 await _context.SaveChangesAsync();
+            } else
+            {
+                TempData["Error"] = $"Book not found!";
             }
 
-            return RedirectToPage("./Index");
+                return RedirectToPage("./Index");
         }
     }
 }
